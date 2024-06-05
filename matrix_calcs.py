@@ -5,6 +5,7 @@ l1 = 2.4 # m
 l2 = 1.5 # m 
 klx = 19  # G-m
 kly = -25 # G-m
+cl = 0.01 # corrector length in meters
 
 # Initial conditions
 xinit_offset = 0.001 #m - Say we start w/ 1 mm offset
@@ -22,7 +23,7 @@ y0 = np.array([[yinit_offset],
 m_d1 = np.array([[1, l1],
                  [0, 1]])
 
-m_d2 = np.array([[1, l1],
+m_d2 = np.array([[1, l2],
                  [0, 1]])
 
 q_cmx = np.array([[1, 0],
@@ -30,6 +31,12 @@ q_cmx = np.array([[1, 0],
 
 q_cmy = np.array([[1, 0],
                  [kly, 1]])
+
+c_cmx = np.array([[1, cl],
+                 [0, 1]])
+
+c_cmy = np.array([[1, cl],
+                 [0, 1]])
 
 def calc_offsets(minitial, m_d1, m_d2, q_cm):
     xd2_q1    = np.matmul(m_d2, q_cm)
