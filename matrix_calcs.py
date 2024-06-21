@@ -3,9 +3,10 @@ import numpy as np
 # Constants
 l1 = 2.4 # m
 l2 = 1.5 # m 
+# Converting Gauss-m to T-m
 kx = 0.0019  # T-m = 19  G-m
-ky = 0.0025 # T-m = -25 G-m - taking absolute value
-cl = 1 # corrector length in meters
+ky = -0.0025 # T-m = -25 G-m 
+cl = 0.1 # corrector length in meters
 
 # Multiply field strength by length to get T units
 # Assuming momentum and kinetic energy differences are neglible (electrons)
@@ -15,23 +16,22 @@ def calc_rho_theta(energy, k, l):
     print('rho', rho, 'theta', theta)
     return rho, theta
 
-energy = 3.0 # GeV
+energy = 0.60 # GeV (60 MeV)
 rhox, thetax = calc_rho_theta(energy, kx, cl) 
 rhoy, thetay = calc_rho_theta(energy, ky, cl)
 
-
 # Initial conditions
 xinit_offset = 0.001 #m - Say we start w/ 1 mm offset
-xinit_angle  = 0.1 # Say we start with a very small angle (best case)
+xinit_angle  = 0.01  #Say we start with a very small angle (best case)
 
 yinit_offset = 0.001 #m - Say we start w/ 1 mm offset
-yinit_angle  = 0.01 # Say we start with no angle (best case)
+yinit_angle  = 0.0  #Say we start with no angle (best case)
 
 x0 = np.array([[xinit_offset],
-               [0]])
+               [xinit_angle]])
 
 y0 = np.array([[yinit_offset],
-               [0]])
+               [yinit_angle]])
 
 m_d1 = np.array([[1, l1],
                  [0, 1]])
